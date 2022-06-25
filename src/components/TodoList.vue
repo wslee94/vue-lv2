@@ -7,7 +7,7 @@
           v-on:click="toggleComplete(todoItem, index)">
         </i>
         <span v-bind:class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span> 
-        <span class="removeBtn" v-on:click="removeTodo(todoItem.item, index)">
+        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -20,9 +20,7 @@ export default {
   props: ["todoItems"],
   methods: {
     removeTodo: function(todoItem, index) {
-      console.log(todoItem, index);
-      // localStorage.removeItem(todoItem);
-      // this.todoItems.splice(index, 1);
+      this.$emit("removeTodoItem", todoItem, index);
     },
     toggleComplete: function(todoItem) {
       todoItem.completed = !todoItem.completed;

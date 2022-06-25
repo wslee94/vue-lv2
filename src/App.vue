@@ -2,7 +2,7 @@
   <div id="app">
     <todo-header />
     <todo-input v-on:addTodoItem="addTodoItem" />
-    <todo-list v-bind:todoItems="todoItems" />
+    <todo-list v-bind:todoItems="todoItems" v-on:removeTodoItem="removeTodoItem" />
     <todo-footer />
   </div>
 </template>
@@ -22,8 +22,12 @@ export default {
   methods: {
     addTodoItem: function(todoItem) {
       const obj = { completed: false, item: todoItem };
-      localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+      localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
+    },
+    removeTodoItem: function(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
     }
   },
   created: function() {
