@@ -2,7 +2,7 @@
   <div id="app">
     <todo-header />
     <todo-input v-on:addTodoItem="addTodoItem" />
-    <todo-list v-bind:todoItems="todoItems" v-on:removeTodoItem="removeTodoItem" />
+    <todo-list v-bind:todoItems="todoItems" v-on:removeTodoItem="removeTodoItem" v-on:toggleComplete="toggleComplete" />
     <todo-footer />
   </div>
 </template>
@@ -28,6 +28,12 @@ export default {
     removeTodoItem: function(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
+    },
+    toggleComplete: function(todoItem, index) {
+      /* anti pattern, 인자를 직접 수정하지 말자! (현재 상황: props로 내린 데이터를 하위 컴포넌트가 emit 인자로 전달해서 직접 수정하는 경우)  */
+      // todoItem.completed = !todoItem.completed;
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+      localStorage.setItem(todoItem.item, JSON.stringify(this.todoItems[index]));
     }
   },
   created: function() {
