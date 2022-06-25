@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <TodoHeader />
-    <TodoInput />
-    <TodoList />
-    <TodoFooter />
+    <todo-header />
+    <todo-input />
+    <todo-list v-bind:todoItems="todoItems" />
+    <todo-footer />
   </div>
 </template>
 
@@ -14,6 +14,19 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
+  data: function() {
+    return {
+      todoItems: [],
+    }
+  },
+  created: function() {
+    /* 인스턴스가 생성된 후 호출 */
+    if(localStorage.length > 0) {
+      for(let i = 0; i < localStorage.length; i++) {
+        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      }
+    }
+  },
   components: {
     TodoHeader,
     TodoInput,
