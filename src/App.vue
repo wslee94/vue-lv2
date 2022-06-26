@@ -2,8 +2,12 @@
   <div id="app">
     <todo-header />
     <todo-input v-on:addTodoItem="addTodoItem" />
-    <todo-list v-bind:todoItems="todoItems" v-on:removeTodoItem="removeTodoItem" v-on:toggleComplete="toggleComplete" />
-    <todo-footer />
+    <todo-list 
+      v-bind:todoItems="todoItems" 
+      v-on:removeTodoItem="removeTodoItem" 
+      v-on:toggleComplete="toggleComplete" 
+    />
+    <todo-footer v-on:clearAllItem="clearAllItem" />
   </div>
 </template>
 
@@ -34,6 +38,10 @@ export default {
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.setItem(todoItem.item, JSON.stringify(this.todoItems[index]));
+    },
+    clearAllItem: function() {
+      localStorage.clear();
+      this.todoItems = [];
     }
   },
   created: function() {
