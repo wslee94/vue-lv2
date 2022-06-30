@@ -47,16 +47,6 @@ export default {
       this.todoItems = [];
     },
   },
-  created() {
-    /* 인스턴스가 생성된 후 호출 */
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(
-          JSON.parse(localStorage.getItem(localStorage.key(i)))
-        );
-      }
-    }
-  },
   components: {
     TodoHeader,
     TodoInput,
