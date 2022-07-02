@@ -9,13 +9,16 @@
         <i
           class="checkBtn fas fa-check"
           v-bind:class="{ checkBtnCompleted: todoItem.completed }"
-          v-on:click="toggleComplete(todoItem, index)"
+          v-on:click="toggleComplete({ todoItem, index })"
         >
         </i>
         <span v-bind:class="{ textCompleted: todoItem.completed }">{{
           todoItem.item
         }}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span
+          class="removeBtn"
+          v-on:click="removeTodoItem({ todoItem, index })"
+        >
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -24,16 +27,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   methods: {
-    removeTodo(todoItem, index) {
-      this.$store.commit("removeTodoItem", { todoItem, index });
-    },
-    toggleComplete(todoItem, index) {
-      this.$store.commit("toggleComplete", { todoItem, index });
-    },
+    ...mapMutations(["removeTodoItem", "toggleComplete"]),
   },
   computed: {
     ...mapState(["todoItems"]),
