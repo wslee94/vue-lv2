@@ -25,13 +25,12 @@
 
 <script>
 export default {
-  props: ["todoItems"],
   methods: {
     removeTodo(todoItem, index) {
-      this.$emit("removeTodoItem", todoItem, index);
+      this.$store.commit("removeTodoItem", { todoItem, index });
     },
     toggleComplete(todoItem, index) {
-      this.$emit("toggleComplete", todoItem, index);
+      this.$store.commit("toggleComplete", { todoItem, index });
     },
   },
 };
@@ -83,7 +82,7 @@ li {
 }
 
 .list-enter,
-.list.leave-to {
+.list-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
